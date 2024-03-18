@@ -50,11 +50,3 @@ function draw() {
 }
 
 setInterval(draw, 100);
-/* 
-    Todo　3/16
-    ボタンを押すとclick関数で非表示の<input type="file">を呼び出して、ファイルを選択
-    選択できたらcanvas上に表示
-    ドラッグ＆ドロップで移動    →   　clearRect、画像の座標を保存して描画関数もつくる　詳細は（https://wild-outdoorlife.com/javascript/canvas-dropdrag/）
-    右のツールボックスでサイズを変更
-
-*/
