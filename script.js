@@ -28,6 +28,7 @@ $('#create-inventory').click(function() {
     defaultInventoryUI.src = 'cursor.png';
     defaultInventoryUI.onload = () => {
         images.push(new ImageObject(defaultInventoryUI, $('#X').val(), $('#Y').val()));
+        updateList($('#X').val(), $('#Y').val());
         console.log(images);
     }
 });
@@ -47,6 +48,10 @@ function draw() {
         const pos = images[i].Pos;
         ctx.drawImage(images[i].Image, pos[0], pos[1]);
     }
+}
+
+function updateList(x, y) {
+    $(`<p class='layer'>${x} ${y}</p>`).appendTo('.object-list');
 }
 
 setInterval(draw, 100);

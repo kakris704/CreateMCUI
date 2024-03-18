@@ -27,4 +27,17 @@ canvas {
     #X,#Y {
         width: 50px;
     }
+
+    .object-list {
+        margin-top: 10px;
+        background-color: cornsilk;
+        border-radius: 5px;
+        border: solid 1px gray;
+        min-height: 20px;
+
+        .layer {
+            margin: 0px;
+            text-align: center;
+        }
+    }
 }

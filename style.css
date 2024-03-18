@@ -27,4 +27,15 @@ canvas {
 }
 .toolbox #X, .toolbox #Y {
   width: 50px;
+}
+.toolbox .object-list {
+  margin-top: 10px;
+  background-color: cornsilk;
+  border-radius: 5px;
+  border: solid 1px gray;
+  min-height: 20px;
+}
+.toolbox .object-list .layer {
+  margin: 0px;
+  text-align: center;
 }/*# sourceMappingURL=style.css.map */
