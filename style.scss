@@ -1,0 +1,30 @@
+body {
+    background-color: lightgray;
+    user-select: none;
+}
+
+canvas {
+    border:solid 2px black;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.toolbox {
+    margin: 10px;
+    display:flex;
+    flex-direction: column;
+
+    .button {
+        border-radius: 0px;
+        background-color: cornflowerblue;
+        border: none;
+        color: white;
+    }
+
+    #X,#Y {
+        width: 50px;
+    }
+}

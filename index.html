@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>UICreator</title>
+</head>
+<body>
+    <p>始まりました！サイト作成RTA！！今から画像を生成する初めてのウェブサイトを作るぜ！js向いてなさすぎ！！！</p>
+    <div class="container">
+        <canvas id="canvas" width="1024" height="1024"></canvas>
+        <div class="toolbox">
+            <button id="create-inventory" class="button">デフォルトUI</button>
+
+            <div class="add-image">
+                <input type="file" id="file-uploader" style="display: none;", accept="image/*">
+                <button class="import-image  button">こんにちは</button>
+                <div class="textfield">
+                    <input type="text" id="X">
+                    <input type="text" id="Y">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

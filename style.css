@@ -1,0 +1,30 @@
+body {
+  background-color: lightgray;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+canvas {
+  border: solid 2px black;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.toolbox {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.toolbox .button {
+  border-radius: 0px;
+  background-color: cornflowerblue;
+  border: none;
+  color: white;
+}
+.toolbox #X, .toolbox #Y {
+  width: 50px;
+}/*# sourceMappingURL=style.css.map */
