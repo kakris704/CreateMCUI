@@ -83,7 +83,13 @@ function draw() {
 }
 
 function updateList(text) {
-    $(`<p class='layer'>${text}</p>`).appendTo('.object-list');
+    $(
+        `<div class='layer'>${text}
+            <div class='layer-menu'>
+                <div class='icon'></div>
+            </div>
+         </div>`
+    ).appendTo('.object-list');
 }
 
 function layerSelect() {

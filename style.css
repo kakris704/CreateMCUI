@@ -37,20 +37,32 @@ canvas {
   border-radius: 5px;
   border: solid 1px gray;
   min-height: 20px;
+  width: 250px;
 }
 .toolbox .object-list .layer {
-  margin: 0px;
-  text-align: center;
+  text-align: left;
   border-bottom: solid 1px black;
   min-height: 1rem;
+  padding-left: 5px;
+  height: 3rem;
+}
+.toolbox .object-list .layer .layer-menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.toolbox .object-list .layer .layer-menu .icon {
+  background-color: red;
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+  -webkit-clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+          clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
 }
 .toolbox .object-list .selected {
-  border: solid 1px red !important;
+  background-color: white;
   color: red;
 }
 .toolbox .object-list .layer:last-of-type {
   border-bottom: none;
-}
-.toolbox .object-list .layer:has(+ .selected) {
-  border: none;
 }/*# sourceMappingURL=style.css.map */
