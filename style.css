@@ -13,6 +13,7 @@ canvas {
 .container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .toolbox {
@@ -25,6 +26,7 @@ canvas {
   background-color: cornflowerblue;
   border: none;
   color: white;
+  margin: 2px;
 }
 .toolbox #X, .toolbox #Y {
   width: 50px;
@@ -40,6 +42,7 @@ canvas {
   margin: 0px;
   text-align: center;
   border-bottom: solid 1px black;
+  min-height: 1rem;
 }
 .toolbox .object-list .selected {
   border: solid 1px red !important;

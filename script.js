@@ -32,10 +32,10 @@ $('#create-inventory').click(function() {
     console.log('happy');
 
     const defaultInventoryUI = new Image();
-    defaultInventoryUI.src = 'cursor.png';
+    defaultInventoryUI.src = 'texture/inventory.png';
     defaultInventoryUI.onload = () => {
         images.push(new ImageObject(defaultInventoryUI, Number($('#X').val()), Number($('#Y').val())));
-        updateList($('#X').val(), $('#Y').val());
+        updateList('インベントリ');
         // console.log(images);
     }
 });
@@ -75,14 +75,15 @@ $('#file-uploader').change(function() {
 // 画像を描画する
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < images.length; i++) {
+    for (let i = images.length -1; i >= 0; i--) {
         const pos = images[i].Pos;
         ctx.drawImage(images[i].Image, pos[0], pos[1]);
+        console.log(i);
     }
 }
 
-function updateList(x, y) {
-    $(`<p class='layer'>${x} ${y}</p>`).appendTo('.object-list');
+function updateList(text) {
+    $(`<p class='layer'>${text}</p>`).appendTo('.object-list');
 }
 
 function layerSelect() {
