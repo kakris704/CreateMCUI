@@ -1,6 +1,7 @@
 const canvas = $('canvas')[0];
 const ctx = canvas.getContext('2d');
 let images = [];
+let selectLayer = -1;
 
 class ImageObject {
     constructor(image, x, y) {
@@ -19,6 +20,12 @@ class ImageObject {
     get Image() {
         return this.image;
     }
+
+    move(x, y) {
+        this.pos = [this.pos[0] + x, this.pos[1] + y];
+
+        console.log(this.pos);
+    }
 }
 
 $('#create-inventory').click(function() {
@@ -27,9 +34,33 @@ $('#create-inventory').click(function() {
     const defaultInventoryUI = new Image();
     defaultInventoryUI.src = 'cursor.png';
     defaultInventoryUI.onload = () => {
-        images.push(new ImageObject(defaultInventoryUI, $('#X').val(), $('#Y').val()));
+        images.push(new ImageObject(defaultInventoryUI, Number($('#X').val()), Number($('#Y').val())));
         updateList($('#X').val(), $('#Y').val());
-        console.log(images);
+        // console.log(images);
+    }
+});
+
+$(document).on('click', '.layer', function() {
+    $('.selected').removeClass('selected');
+
+    selectLayer = $(this).index();
+    $(this).addClass('selected');
+    // images[selectLayer].Pos = [10, 10];
+});
+
+$(document).on('keypress', function(e) {
+    console.log(e.key);
+    if(e.key === "w") {
+        images[selectLayer].move(0, -20);
+    }
+    else if(e.key === "d") {
+        images[selectLayer].move(20, 0);
+    }
+    else if(e.key === "a") {
+        images[selectLayer].move(-20, 0);
+    }
+    else if(e.key === "s") {
+        images[selectLayer].move(0, 20);
     }
 });
 
@@ -53,5 +84,10 @@ function draw() {
 function updateList(x, y) {
     $(`<p class='layer'>${x} ${y}</p>`).appendTo('.object-list');
 }
+
+function layerSelect() {
+
+}
+
 
 setInterval(draw, 100);

@@ -5,6 +5,7 @@ body {
 
 canvas {
     border:solid 2px black;
+    background-color: white;
 }
 
 .container {
@@ -38,6 +39,20 @@ canvas {
         .layer {
             margin: 0px;
             text-align: center;
+            border-bottom: solid 1px black;
+        }
+
+        .selected {
+            border:solid 1px red !important;
+            color: red;
+        }
+
+        .layer:last-of-type {
+            border-bottom: none;
+        }
+
+        .layer:has(+ .selected) {
+            border:none;
         }
     }
 }
