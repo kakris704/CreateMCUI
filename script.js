@@ -35,7 +35,7 @@ $('#create-inventory').click(function() {
     defaultInventoryUI.src = 'texture/inventory.png';
     defaultInventoryUI.onload = () => {
         images.push(new ImageObject(defaultInventoryUI, Number($('#X').val()), Number($('#Y').val())));
-        updateList('インベントリ');
+        updateList(`インベントリ${images.length}`);
         // console.log(images);
     }
 });
@@ -46,6 +46,17 @@ $(document).on('click', '.layer', function() {
     selectLayer = $(this).index();
     $(this).addClass('selected');
     // images[selectLayer].Pos = [10, 10];
+});
+
+$(document).on('click', '#layer-up', function() {
+    const thisLayer = $(this).parent('.layer-menu').parent('.layer');
+    const index = thisLayer.index();
+    console.log(`test ${index}`);
+    if(index === 0) return;
+    console.log('test');
+    images.splice(index-1, 2, images[index], images[index-1]);
+    const replacedDom = $(`layer:nth-child(${index-1})`);
+    $(this).parent('.layer-menu').parent('.layer').prependTo(`layer:nth-child(${index})`);
 });
 
 $(document).on('keypress', function(e) {
@@ -78,7 +89,6 @@ function draw() {
     for (let i = images.length -1; i >= 0; i--) {
         const pos = images[i].Pos;
         ctx.drawImage(images[i].Image, pos[0], pos[1]);
-        console.log(i);
     }
 }
 
@@ -86,7 +96,7 @@ function updateList(text) {
     $(
         `<div class='layer'>${text}
             <div class='layer-menu'>
-                <div class='icon'></div>
+                <div class='icon' id='layer-up'></div>
             </div>
          </div>`
     ).appendTo('.object-list');

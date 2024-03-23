@@ -38,6 +38,7 @@ canvas {
   border: solid 1px gray;
   min-height: 20px;
   width: 250px;
+  overflow: hidden;
 }
 .toolbox .object-list .layer {
   text-align: left;
@@ -58,10 +59,15 @@ canvas {
   margin: 5px;
   -webkit-clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
           clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  visibility: hidden;
 }
 .toolbox .object-list .selected {
   background-color: white;
   color: red;
+}
+.toolbox .object-list .selected .layer-menu .icon {
+  background-color: blue;
+  visibility: visible;
 }
 .toolbox .object-list .layer:last-of-type {
   border-bottom: none;
