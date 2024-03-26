@@ -55,6 +55,7 @@ canvas {
             min-height: 1rem;
             height: 3rem;
             display: flex;
+            overflow: hidden;
 
             .name {
                 margin: 10px;
@@ -108,6 +109,13 @@ canvas {
             .delete-button {
                 visibility: visible;
             }
+        }
+
+        .icon {
+            transition: .2s ease-out;
+        }
+        .icon:hover {
+            scale: 1.2;
         }
 
         .layer:last-of-type {

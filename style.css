@@ -51,6 +51,7 @@ canvas {
   min-height: 1rem;
   height: 3rem;
   display: flex;
+  overflow: hidden;
 }
 .toolbox .object-list .layer .name {
   margin: 10px;
@@ -96,6 +97,12 @@ canvas {
 }
 .toolbox .object-list .locked.selected .delete-button {
   visibility: visible;
+}
+.toolbox .object-list .icon {
+  transition: 0.2s ease-out;
+}
+.toolbox .object-list .icon:hover {
+  scale: 1.2;
 }
 .toolbox .object-list .layer:last-of-type {
   border-bottom: none;
