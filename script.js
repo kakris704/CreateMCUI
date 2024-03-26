@@ -85,6 +85,15 @@ $(document).on('click', '#layer-down', function() {
     return false;
 });
 
+// レイヤーを削除
+$(document).on('click', '.delete-button', function() {
+    const index = $(this).index() -1;
+    images.splice(index, 1);
+    selectLayer = -1;
+    updateList();
+    return false;
+});
+
 // 移動
 $(document).on('keypress', function(e) {
     if(e.key === "w") {
@@ -138,6 +147,7 @@ function updateList() {
         $(
             `<div class='layer'>
                 <div class='name'>${images[i].name}</div>
+                <div class='delete-button icon'></div>
                 <div class='move-button'>
                     <div class='icon' id='layer-up'></div>
                     <div class='icon' id='layer-down'></div>

@@ -58,7 +58,6 @@ canvas {
 .toolbox .object-list .layer .move-button {
   display: flex;
   flex-direction: column;
-  margin-left: auto;
 }
 .toolbox .object-list .layer .move-button .icon {
   background-color: gray;
@@ -75,14 +74,28 @@ canvas {
   -webkit-clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
           clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
 }
+.toolbox .object-list .layer .delete-button {
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  border-radius: 2px;
+  margin: auto 0px auto auto;
+  visibility: hidden;
+}
 .toolbox .object-list .selected {
   background-color: white;
 }
 .toolbox .object-list .selected .move-button .icon {
   visibility: visible;
 }
-.toolbox .object-list .locked.selected .move-button .icon {
+.toolbox .object-list .selected .icon {
+  visibility: visible;
+}
+.toolbox .object-list .locked.selected .icon {
   visibility: hidden;
+}
+.toolbox .object-list .locked.selected .delete-button {
+  visibility: visible;
 }
 .toolbox .object-list .layer:last-of-type {
   border-bottom: none;

@@ -63,7 +63,6 @@ canvas {
             .move-button {
                 display: flex;
                 flex-direction: column;
-                margin-left: auto;
 
                 .icon {
                     background-color: gray;
@@ -81,6 +80,15 @@ canvas {
                     clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
                 }
             }
+
+            .delete-button {
+                width: 15px;
+                height: 15px;
+                background-color: red;
+                border-radius: 2px;
+                margin: auto 0px auto auto;
+                visibility: hidden;
+            }
         }
 
         .selected {
@@ -88,10 +96,18 @@ canvas {
             .move-button .icon {
                 visibility: visible;
             }
+            .icon {
+                visibility: visible;
+            }
         }
 
-        .locked.selected .move-button .icon {
-            visibility: hidden;
+        .locked.selected {
+            .icon {
+                visibility: hidden;
+            }
+            .delete-button {
+                visibility: visible;
+            }
         }
 
         .layer:last-of-type {
