@@ -11,20 +11,16 @@
     <div class="container">
         <canvas id="canvas" width="1024" height="1024"></canvas>
         <div class="toolbox">
-            <button id="create-inventory" class="button">デフォルトUI</button>
-
-            <div class="add-image">
-                <input type="file" id="file-uploader" style="display: none;", accept="image/*">
-                <button class="import-image  button">画像を挿入</button><a class="filename"></a>
-                <div class="textfield">
-                    <input type="text" id="X">
-                    <input type="text" id="Y">
-                </div>
-            </div>
+            <!-- <button id="create-inventory" class="button">デフォルトUI</button> -->
+            <input type="file" id="file-uploader" style="display: none;", accept="image/*">
+            <button class="import-image button">画像を挿入</button>
+            <button class="preview button">プレビュー</button>
+            <button class="download button">ダウンロード</button>
             <div class="layer-value">
-                <input type="number" id="layerX" class="input-value">
-                <input type="number" id="layerY" class="input-value">
-                <input type="number" id="layerScale" class="input-value">
+                <input type="number" id="layerX" class="input-value" step="10">
+                <input type="number" id="layerY" class="input-value" step="10">
+                <input type="number" id="layerScale" class="input-value" step="0.1">
+                <input type="number" id="UIOpacity" class="input-value" step="0.1">
             </div>
             <div class="object-list"></div>
         </div>

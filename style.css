@@ -24,9 +24,10 @@ canvas {
 }
 
 .toolbox {
-  margin: 10px;
+  margin: 200px 10px 0px 10px;
   display: flex;
   flex-direction: column;
+  max-width: 250px;
 }
 .toolbox .button {
   border-radius: 0px;
@@ -34,9 +35,17 @@ canvas {
   border: none;
   color: white;
   margin: 2px;
+  text-align: center;
+  transition: 0.2s ease-out;
 }
-.toolbox #X, .toolbox #Y {
-  width: 50px;
+.toolbox .button:hover {
+  scale: 1.02;
+}
+.toolbox .button:active {
+  scale: 0.95;
+}
+.toolbox .enable {
+  background-color: lightcoral;
 }
 .toolbox .object-list {
   background-color: cornsilk;
@@ -55,6 +64,7 @@ canvas {
 }
 .toolbox .object-list .layer .name {
   margin: 10px;
+  max-width: 150px;
 }
 .toolbox .object-list .layer .move-button {
   display: flex;
@@ -82,6 +92,7 @@ canvas {
   border-radius: 2px;
   margin: auto 0px auto auto;
   visibility: hidden;
+  min-width: 15px;
 }
 .toolbox .object-list .selected {
   background-color: white;
@@ -109,11 +120,10 @@ canvas {
 }
 
 .layer-value {
-  margin: 5px auto;
+  margin: 50px auto 10px auto;
 }
 .layer-value .input-value {
   width: 50px;
-  margin-top: 150px;
   transform: skewX(-10deg);
   border: none;
 }

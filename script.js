@@ -1,9 +1,21 @@
 const canvas = $('canvas')[0];
 const ctx = canvas.getContext('2d');
 let images = [];
-let selectLayer = -1;
+let selectLayer = 0;
 let isDrag = false;
 let beforePos = [];
+let UIOpacity = 0.5;
+let isPreview = false;
+
+ctx.mozImageSmoothingEnabled = false;
+ctx.webkitImageSmoothingEnabled = false;
+ctx.msImageSmoothingEnabled = false;
+ctx.imageSmoothingEnabled = false;
+
+let InventoryTop = new Image();
+InventoryTop.src = 'texture/inventory-top.png';
+let InventoryBottom = new Image();
+InventoryBottom.src = 'texture/inventory-bottom.png';
 
 // 画像（レイヤー）のクラス
 class ImageObject {
@@ -52,17 +64,14 @@ class ImageObject {
 }
 
 // UI作成ボタン
-$('#create-inventory').click(function() {
-    console.log('happy');
+// $('#create-inventory').click(function() {
+//     console.log('happy');
+//     images.unshift(new ImageObject(InventoryBottom, Number($('#X').val()), Number($('#Y').val()), `インベントリ${images.length+1}`, true));
+//     updateList();
+//     // console.log(images);
+// });
 
-    const defaultInventoryUI = new Image();
-    defaultInventoryUI.src = 'texture/inventory.png';
-    defaultInventoryUI.onload = () => {
-        images.unshift(new ImageObject(defaultInventoryUI, Number($('#X').val()), Number($('#Y').val()), `インベントリ${images.length+1}`, true));
-        updateList();
-        // console.log(images);
-    }
-});
+
 
 // 画像をドラッグする
 $('canvas').mousedown(function(e) {
@@ -123,9 +132,18 @@ $(document).on('click', '#layer-down', function() {
 $(document).on('click', '.delete-button', function() {
     const index = $(`.layer:nth-child(${selectLayer+1})`).index();
     images.splice(index, 1);
-    selectLayer = -1;
+    selectLayer = 0;
     updateList();
     return false;
+});
+
+// プレビューボタン
+$('.preview').click(function() {
+    isPreview = !isPreview;
+    console.log(isPreview);
+    if(isPreview) {$(this).addClass('enable');}
+    else {$(this).removeClass('enable');}
+    draw();
 });
 
 // 移動
@@ -151,7 +169,6 @@ $('.import-image').click(function() {
 // 画像をインポート
 $('#file-uploader').change(function() {
     const importImage = $('#file-uploader').prop("files")[0];
-    $('a').text(importImage.name);
     console.log(importImage);
 
     let reader = new FileReader();
@@ -173,23 +190,43 @@ function draw() {
         const image = images[i];
         ctx.drawImage(image.Image, image.pos[0], image.pos[1], image.Width * image.Scale, image.Height * image.Scale);
     }
+    // インベントリ
+    ctx.drawImage(InventoryBottom, 0, 0);
+    ctx.globalAlpha = UIOpacity;
+    ctx.drawImage(InventoryTop, 0, 0);
+    ctx.globalAlpha = 1;
     updateValue();
+    if(isPreview) {
+        inventoryClip();
+    }
 }
 
-// 位置の更新
+// 位置の表示を更新
 function updateValue() {
     const image = images[selectLayer];
     $('#layerX').val(image.Pos[0]);
     $('#layerY').val(image.Pos[1]);
-    $('#layerScale').val(image.Scale)
+    $('#layerScale').val(image.Scale);
+    $('#UIOpacity').val(UIOpacity);
 }
 
+// 位置を反映
 $('.input-value').change(function() {
     images[selectLayer].Pos[0] = Number($('#layerX').val());
     images[selectLayer].Pos[1] = Number($('#layerY').val());
     images[selectLayer].Scale = Number($('#layerScale').val());
+    UIOpacity = Number($('#UIOpacity').val());
     console.log('changed');
     draw();
+});
+
+// ダウンロードボタン
+$('.download').click(function() {
+    inventoryClip();
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png', 1);
+    link.download = 'inventory.png';
+    link.click();
 });
 
 // レイヤーを表示するHTML要素の反映
@@ -212,3 +249,24 @@ function updateList() {
     draw();
     console.log(selectLayer);
 }
+
+// UIからはみ出た部分を切り取る
+function inventoryClip() {
+    // 8x3
+    ctx.clearRect(0, 0, 3, 8);
+    ctx.clearRect(3, 0, 4, 4);
+    ctx.clearRect(691, 0, 4, 4);
+    ctx.clearRect(695, 0, 4, 8);
+    ctx.clearRect(699, 0, 4, 12);
+    ctx.clearRect(0, 652, 3, 4);
+    ctx.clearRect(0, 656, 7, 4);
+    ctx.clearRect(0, 660, 11, 4);
+    ctx.clearRect(695, 660, 4, 4);
+    ctx.clearRect(699, 656, 4, 8);
+    ctx.clearRect(703, 0, 321, 664);
+    ctx.clearRect(0, 664, 1024, 360);
+}
+
+InventoryBottom.onload = () => {
+    draw();
+};
