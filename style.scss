@@ -6,14 +6,14 @@
 }
 
 body {
-    background-color: lightgray;
+    background: linear-gradient(to left top, rgb(162, 207, 233), rgb(175, 224, 189));
     user-select: none;
     zoom:80%;
 }
 
 canvas {
-    border:solid 2px black;
-    background-color: white;
+    border: solid rgb(50, 88, 225) 2px;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .container {
@@ -23,10 +23,13 @@ canvas {
 }
 
 .toolbox {
-    margin: 200px 10px 0px 10px;
+    padding: 200px 10px 0px 10px;
     display:flex;
     flex-direction: column;
     max-width: 250px;
+
+    background-color: rgb(233, 236, 242, 0.8);
+    border-radius: 0px 50px 50px 0px;
 
 
     .button {
@@ -34,15 +37,24 @@ canvas {
         background-color: cornflowerblue;
         border: none;
         color: white;
-        margin: 2px;
         text-align: center;
         transition: .2s ease-out;
+        width: 90%;
+        height: 25px;
+        margin: 2px auto;
     }
     .button:hover {
         scale: 1.02;
+        background-color: rgb(150, 182, 241);
+        text-shadow: 0px 1px 0px  black;
+        border-radius: 5px;
     }
     .button:active {
         scale: 0.95;
+    }
+
+    .button:hover.enable {
+        background-color: rgb(246, 167, 167);
     }
 
     .enable {
@@ -50,10 +62,9 @@ canvas {
     }
 
     .object-list {
-        background-color: cornsilk;
-        border-radius: 5px;
-        border: solid 1px gray;
-        min-height: 20px;
+        background-color: rgb(172, 188, 214);
+        border-radius: 10px;
+        min-height: 0px;
         width: 250px;
         overflow: hidden;
 
@@ -67,6 +78,7 @@ canvas {
             .name {
                 margin: 10px;
                 max-width: 150px;
+                color: white;
             }
 
             .move-button {
@@ -74,7 +86,7 @@ canvas {
                 flex-direction: column;
 
                 .icon {
-                    background-color: gray;
+                    background-color: white;
                     width: 15px;
                     height: 15px;
                     margin: 5px;
@@ -102,7 +114,7 @@ canvas {
         }
 
         .selected {
-            background-color: white;
+            background-color: rgb(161, 197, 255);
             .move-button .icon {
                 visibility: visible;
             }
@@ -140,6 +152,7 @@ canvas {
         width: 50px;
         transform: skewX(-10deg);
         border:none;
+        text-align: center;
     }
 
     #layerX {

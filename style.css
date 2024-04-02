@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: lightgray;
+  background: linear-gradient(to left top, rgb(162, 207, 233), rgb(175, 224, 189));
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -13,8 +13,8 @@ body {
 }
 
 canvas {
-  border: solid 2px black;
-  background-color: white;
+  border: solid rgb(50, 88, 225) 2px;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .container {
@@ -24,34 +24,43 @@ canvas {
 }
 
 .toolbox {
-  margin: 200px 10px 0px 10px;
+  padding: 200px 10px 0px 10px;
   display: flex;
   flex-direction: column;
   max-width: 250px;
+  background-color: rgba(233, 236, 242, 0.8);
+  border-radius: 0px 50px 50px 0px;
 }
 .toolbox .button {
   border-radius: 0px;
   background-color: cornflowerblue;
   border: none;
   color: white;
-  margin: 2px;
   text-align: center;
   transition: 0.2s ease-out;
+  width: 90%;
+  height: 25px;
+  margin: 2px auto;
 }
 .toolbox .button:hover {
   scale: 1.02;
+  background-color: rgb(150, 182, 241);
+  text-shadow: 0px 1px 0px black;
+  border-radius: 5px;
 }
 .toolbox .button:active {
   scale: 0.95;
+}
+.toolbox .button:hover.enable {
+  background-color: rgb(246, 167, 167);
 }
 .toolbox .enable {
   background-color: lightcoral;
 }
 .toolbox .object-list {
-  background-color: cornsilk;
-  border-radius: 5px;
-  border: solid 1px gray;
-  min-height: 20px;
+  background-color: rgb(172, 188, 214);
+  border-radius: 10px;
+  min-height: 0px;
   width: 250px;
   overflow: hidden;
 }
@@ -65,13 +74,14 @@ canvas {
 .toolbox .object-list .layer .name {
   margin: 10px;
   max-width: 150px;
+  color: white;
 }
 .toolbox .object-list .layer .move-button {
   display: flex;
   flex-direction: column;
 }
 .toolbox .object-list .layer .move-button .icon {
-  background-color: gray;
+  background-color: white;
   width: 15px;
   height: 15px;
   margin: 5px;
@@ -95,7 +105,7 @@ canvas {
   min-width: 15px;
 }
 .toolbox .object-list .selected {
-  background-color: white;
+  background-color: rgb(161, 197, 255);
 }
 .toolbox .object-list .selected .move-button .icon {
   visibility: visible;
@@ -126,6 +136,7 @@ canvas {
   width: 50px;
   transform: skewX(-10deg);
   border: none;
+  text-align: center;
 }
 .layer-value #layerX {
   color: red;
