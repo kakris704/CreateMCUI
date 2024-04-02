@@ -8,6 +8,7 @@
 body {
     background-color: lightgray;
     user-select: none;
+    zoom:80%;
 }
 
 canvas {
@@ -48,7 +49,6 @@ canvas {
         min-height: 20px;
         width: 250px;
         overflow: hidden;
-        margin-top: 150px;
 
         .layer {
             border-bottom: solid 1px black;
@@ -122,5 +122,24 @@ canvas {
             border-bottom: none;
         }
 
+    }
+}
+
+.layer-value {
+    margin: 5px auto;
+    .input-value {
+        width: 50px;
+        margin-top: 150px;
+        transform: skewX(-10deg);
+        border:none;
+    }
+
+    #layerX {
+        color: red;
+    }
+    #layerY {
+        color: green;
+    }
+    #layerScale {
     }
 }

@@ -9,6 +9,7 @@ body {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  zoom: 80%;
 }
 
 canvas {
@@ -44,7 +45,6 @@ canvas {
   min-height: 20px;
   width: 250px;
   overflow: hidden;
-  margin-top: 150px;
 }
 .toolbox .object-list .layer {
   border-bottom: solid 1px black;
@@ -106,4 +106,20 @@ canvas {
 }
 .toolbox .object-list .layer:last-of-type {
   border-bottom: none;
+}
+
+.layer-value {
+  margin: 5px auto;
+}
+.layer-value .input-value {
+  width: 50px;
+  margin-top: 150px;
+  transform: skewX(-10deg);
+  border: none;
+}
+.layer-value #layerX {
+  color: red;
+}
+.layer-value #layerY {
+  color: green;
 }/*# sourceMappingURL=style.css.map */

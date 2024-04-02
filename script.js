@@ -2,6 +2,8 @@ const canvas = $('canvas')[0];
 const ctx = canvas.getContext('2d');
 let images = [];
 let selectLayer = -1;
+let isDrag = false;
+let beforePos = [];
 
 // 画像（レイヤー）のクラス
 class ImageObject {
@@ -10,32 +12,40 @@ class ImageObject {
         this.image = image;
         this.name = name;
         this.locked = locked ?? false;
+        this.width = image.width;
+        this.height = image.height;
+        this.scale = 1;
     }
-
     get Pos() {
         return this.pos;
     }
-
     set Pos(pos) {
         if (!this.locked) this.pos = pos;
     }
-
     get Image() {
         return this.image;
     }
-
     get Name() {
         return this.name;
     }
-
     set Name(name) {
         this.name = name;
     }
-
     get Locked() {
         return this.locked;
     }
-
+    get Width() {
+        return this.width;
+    }
+    get Height() {
+        return this.height
+    }
+    get Scale() {
+        return this.scale;
+    }
+    set Scale(value) {
+        this.scale = value;
+    }
     move(x, y) {
         if (!this.locked) this.pos = [this.pos[0] + x, this.pos[1] + y];
     }
@@ -48,11 +58,35 @@ $('#create-inventory').click(function() {
     const defaultInventoryUI = new Image();
     defaultInventoryUI.src = 'texture/inventory.png';
     defaultInventoryUI.onload = () => {
-        images.push(new ImageObject(defaultInventoryUI, Number($('#X').val()), Number($('#Y').val()), `インベントリ${images.length+1}`, true));
+        images.unshift(new ImageObject(defaultInventoryUI, Number($('#X').val()), Number($('#Y').val()), `インベントリ${images.length+1}`, true));
         updateList();
         // console.log(images);
     }
 });
+
+// 画像をドラッグする
+$('canvas').mousedown(function(e) {
+    isDrag = true;
+    beforePos = [e.offsetX, e.offsetY];
+    console.log(isDrag);
+});
+
+$('body').mouseup(function() {
+    isDrag = false;
+    console.log(isDrag);
+});
+
+$('canvas').mousemove(function(e) {
+    if (isDrag) {
+        // 座標を更新
+        console.log(e);
+        images[selectLayer].move(e.offsetX - beforePos[0], e.offsetY - beforePos[1]);
+        beforePos = [e.offsetX, e.offsetY];
+        console.log(images[selectLayer].Pos);
+        draw();
+    }
+});
+
 
 // レイヤー選択時
 $(document).on('click', '.layer', function() {
@@ -87,7 +121,7 @@ $(document).on('click', '#layer-down', function() {
 
 // レイヤーを削除
 $(document).on('click', '.delete-button', function() {
-    const index = $(this).index() -1;
+    const index = $(`.layer:nth-child(${selectLayer+1})`).index();
     images.splice(index, 1);
     selectLayer = -1;
     updateList();
@@ -95,20 +129,20 @@ $(document).on('click', '.delete-button', function() {
 });
 
 // 移動
-$(document).on('keypress', function(e) {
-    if(e.key === "w") {
-        images[selectLayer].move(0, -20);
-    }
-    else if(e.key === "d") {
-        images[selectLayer].move(20, 0);
-    }
-    else if(e.key === "a") {
-        images[selectLayer].move(-20, 0);
-    }
-    else if(e.key === "s") {
-        images[selectLayer].move(0, 20);
-    }
-});
+// $(document).on('keypress', function(e) {
+//     if(e.key === "w") {
+//         images[selectLayer].move(0, -20);
+//     }
+//     else if(e.key === "d") {
+//         images[selectLayer].move(20, 0);
+//     }
+//     else if(e.key === "a") {
+//         images[selectLayer].move(-20, 0);
+//     }
+//     else if(e.key === "s") {
+//         images[selectLayer].move(0, 20);
+//     }
+// });
 
 $('.import-image').click(function() {
     $('#file-uploader').click();
@@ -119,6 +153,7 @@ $('#file-uploader').change(function() {
     const importImage = $('#file-uploader').prop("files")[0];
     $('a').text(importImage.name);
     console.log(importImage);
+
     let reader = new FileReader();
     reader.readAsDataURL(importImage);
     reader.onload = () => {
@@ -135,10 +170,27 @@ $('#file-uploader').change(function() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = images.length -1; i >= 0; i--) {
-        const pos = images[i].Pos;
-        ctx.drawImage(images[i].Image, pos[0], pos[1]);
+        const image = images[i];
+        ctx.drawImage(image.Image, image.pos[0], image.pos[1], image.Width * image.Scale, image.Height * image.Scale);
     }
+    updateValue();
 }
+
+// 位置の更新
+function updateValue() {
+    const image = images[selectLayer];
+    $('#layerX').val(image.Pos[0]);
+    $('#layerY').val(image.Pos[1]);
+    $('#layerScale').val(image.Scale)
+}
+
+$('.input-value').change(function() {
+    images[selectLayer].Pos[0] = Number($('#layerX').val());
+    images[selectLayer].Pos[1] = Number($('#layerY').val());
+    images[selectLayer].Scale = Number($('#layerScale').val());
+    console.log('changed');
+    draw();
+});
 
 // レイヤーを表示するHTML要素の反映
 function updateList() {
@@ -157,8 +209,6 @@ function updateList() {
         if(images[i].Locked) $(`.layer:nth-child(${i+1})`).addClass('locked');
     }
     $(`.layer:nth-child(${selectLayer+1})`).addClass('selected');
+    draw();
     console.log(selectLayer);
 }
-
-
-setInterval(draw, 100);
