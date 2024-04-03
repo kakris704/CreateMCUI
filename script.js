@@ -6,16 +6,13 @@ let isDrag = false;
 let beforePos = [];
 let UIOpacity = 0.5;
 let isPreview = false;
+let textureUI = [];
+let selectUI = 0;
 
 ctx.mozImageSmoothingEnabled = false;
 ctx.webkitImageSmoothingEnabled = false;
 ctx.msImageSmoothingEnabled = false;
 ctx.imageSmoothingEnabled = false;
-
-let InventoryTop = new Image();
-InventoryTop.src = 'texture/inventory-top.png';
-let InventoryBottom = new Image();
-InventoryBottom.src = 'texture/inventory-bottom.png';
 
 // 画像（レイヤー）のクラス
 class ImageObject {
@@ -137,6 +134,12 @@ $(document).on('click', '.delete-button', function() {
     return false;
 });
 
+// UIの変更時
+$('#select-ui').change(function() {
+    selectUI = Number($(this).val());
+    draw();
+});
+
 // プレビューボタン
 $('.preview').click(function() {
     isPreview = !isPreview;
@@ -191,10 +194,10 @@ function draw() {
         ctx.drawImage(image.Image, image.pos[0], image.pos[1], image.Width * image.Scale, image.Height * image.Scale);
     }
     // インベントリ
-    ctx.drawImage(InventoryBottom, 0, 0);
     ctx.globalAlpha = UIOpacity;
-    ctx.drawImage(InventoryTop, 0, 0);
+    ctx.drawImage(textureUI[selectUI+1], 0, 0);
     ctx.globalAlpha = 1;
+    ctx.drawImage(textureUI[selectUI], 0, 0);
     updateValue();
     if(isPreview) {
         inventoryClip();
@@ -253,20 +256,35 @@ function updateList() {
 // UIからはみ出た部分を切り取る
 function inventoryClip() {
     // 8x3
-    ctx.clearRect(0, 0, 3, 8);
-    ctx.clearRect(3, 0, 4, 4);
-    ctx.clearRect(691, 0, 4, 4);
-    ctx.clearRect(695, 0, 4, 8);
-    ctx.clearRect(699, 0, 4, 12);
-    ctx.clearRect(0, 652, 3, 4);
-    ctx.clearRect(0, 656, 7, 4);
-    ctx.clearRect(0, 660, 11, 4);
-    ctx.clearRect(695, 660, 4, 4);
-    ctx.clearRect(699, 656, 4, 8);
-    ctx.clearRect(703, 0, 321, 664);
-    ctx.clearRect(0, 664, 1024, 360);
+    if(selectUI === 0||2) {
+        ctx.clearRect(0, 0, 3, 8);
+        ctx.clearRect(3, 0, 4, 4);
+        ctx.clearRect(691, 0, 4, 4);
+        ctx.clearRect(695, 0, 4, 8);
+        ctx.clearRect(699, 0, 4, 12);
+        ctx.clearRect(0, 652, 3, 4);
+        ctx.clearRect(0, 656, 7, 4);
+        ctx.clearRect(0, 660, 11, 4);
+        ctx.clearRect(695, 660, 4, 4);
+        ctx.clearRect(699, 656, 4, 8);
+        ctx.clearRect(703, 0, 321, 664);
+        ctx.clearRect(0, 664, 1024, 360);
+    }
 }
 
-InventoryBottom.onload = () => {
-    draw();
-};
+function uiLoad() {
+    textureUI[0] = new Image();
+    textureUI[0].src = 'texture/inventory-top.png';
+    textureUI[1] = new Image();
+    textureUI[1].src = 'texture/inventory-bottom.png';
+    textureUI[2] = new Image();
+    textureUI[2].src = 'texture/crafting_table-top.png';
+    textureUI[3] = new Image();
+    textureUI[3].src = 'texture/crafting_table-bottom.png';
+    textureUI[3].onload = () => {
+        draw();
+        console.log('loaded');
+    }
+}
+
+uiLoad();
